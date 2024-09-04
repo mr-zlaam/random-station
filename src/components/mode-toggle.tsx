@@ -1,3 +1,4 @@
+import DivWrapper from "@/_components/DivWrapper";
 import { useTheme } from "@/components/theme-provider"
 
 import { LuMoon } from "react-icons/lu";
@@ -9,9 +10,14 @@ export function ModeToggle() {
     <>
       {
 
-        theme === "dark" ? <MdOutlineWbSunny size={25} onClick={() => setTheme("light")} />
+        theme === "dark" ?
+          <DivWrapper className="hover:bg-white/40" onClick={() => setTheme("light")} >
+            <MdOutlineWbSunny size={25} />
+          </DivWrapper>
           :
-          <LuMoon size={25} onClick={() => setTheme("dark")} />
+          <DivWrapper onClick={() => setTheme("dark")} >
+            <LuMoon size={25} />
+          </DivWrapper>
       }
 
 
