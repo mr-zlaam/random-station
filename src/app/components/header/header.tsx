@@ -5,7 +5,7 @@ export default function Header() {
   return (
     <header className="h-[80px] w-full">
       <nav className="h-full flex items-center justify-between bg-background backdrop-blur-md">
-        <h1>zlaam</h1>
+        <img src="https://zlaam-notes.netlify.app/assets/image-DpCHewXX.png" alt="zlaam" width={70} height={70} />
         <div className="flex items-center ">
           <ModeToggle />
           <DivWrapper>
