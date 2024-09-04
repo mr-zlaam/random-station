@@ -13,23 +13,27 @@ export default function HomePage() {
   const [numOfCharacters, setNumOfCharacters] = useState<number>(8);
   const [includeNumbers, setIncludeNumbers] = useState<boolean>(false);
   const [includeSpecialCharacters, setIncludeSpecialCharacters] = useState<boolean>(false);
-  const [includeAlphabets, setIncludeAlphabets] = useState<boolean>(true); // Default to true
   const [generatedStrings, setGeneratedStrings] = useState<string[]>([]);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [copyStatus, setCopyStatus] = useState<boolean>(false); // New state for copy status
-
+  const [includeLowerCase, setIncludeLowerCase] = useState<boolean>(true)
+  const [includeUpperCase, setIncludeUpperCase] = useState<boolean>(true)
   const generateRandomStrings = () => {
     if (numOfCharacters === 0) return;
     if (numOfStrings === 0) return;
 
-    const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+    const upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    const lowerCase = "abcdefghijklmnopqrstuvwxyz"
     const numbers = "0123456789";
     const specialCharacters = "!$%^&*_-";
 
     let allCharacters = "";
 
-    if (includeAlphabets) {
-      allCharacters += characters;
+    if (includeLowerCase) {
+      allCharacters += lowerCase;
+    }
+    if (includeUpperCase) {
+      allCharacters += upperCase
     }
 
     if (includeNumbers) {
@@ -41,7 +45,7 @@ export default function HomePage() {
     }
 
     if (allCharacters === "") {
-      allCharacters = characters;
+      allCharacters = upperCase + lowerCase;
     }
 
     const randomStrings = [];
@@ -71,7 +75,7 @@ export default function HomePage() {
     );
   };
 
-  const isGenerateButtonDisabled = !includeAlphabets && !includeNumbers && !includeSpecialCharacters;
+  const isGenerateButtonDisabled = !includeLowerCase && !includeUpperCase && !includeNumbers && !includeSpecialCharacters;
 
   return (
     <>
@@ -138,19 +142,6 @@ export default function HomePage() {
             />
           </div>
 
-          <div className="my-3 flex items-center space-x-2">
-            <label
-              htmlFor="alphabets"
-              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-            >
-              Include alphabets?
-            </label>
-            <Checkbox
-              id="alphabets"
-              checked={includeAlphabets}
-              onCheckedChange={() => setIncludeAlphabets(prev => !prev)}
-            />
-          </div>
 
           <div className="my-3 flex items-center space-x-2">
             <label
@@ -177,6 +168,33 @@ export default function HomePage() {
               id="specialCharacters"
               checked={includeSpecialCharacters}
               onCheckedChange={() => setIncludeSpecialCharacters(prev => !prev)}
+            />
+          </div>
+
+          <div className="my-3 flex items-center space-x-2">
+            <label
+              htmlFor="lowercase"
+              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+            >
+              Include lowercase?
+            </label>
+            <Checkbox
+              id="lowercase"
+              checked={includeLowerCase}
+              onCheckedChange={() => setIncludeLowerCase(prev => !prev)}
+            />
+          </div>
+          <div className="my-3 flex items-center space-x-2">
+            <label
+              htmlFor="uppercase"
+              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+            >
+              Include UpperCase?
+            </label>
+            <Checkbox
+              id="uppercase"
+              checked={includeUpperCase}
+              onCheckedChange={() => setIncludeUpperCase(prev => !prev)}
             />
           </div>
 
