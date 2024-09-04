@@ -59,7 +59,12 @@ export default function HomePage() {
     navigator.clipboard.writeText(generatedStrings.join("\n")).then(
       () => {
         setCopyStatus(true); // Set copy status to true
-        setTimeout(() => setCopyStatus(false), 1000); // Revert to default icon after 1 second
+        setTimeout(() => {
+          setCopyStatus(false)
+          setIsModalOpen(false)
+
+        }, 1000); // Revert to default icon after 1 second
+
       },
       (err) => alert("Failed to copy text: " + err)
     );
@@ -79,7 +84,7 @@ export default function HomePage() {
             <div className="   absolute top-[-35px] right-2 cursor-pointer w-full">
               <DivWrapper
                 onClick={copyToClipboard}
-                className="absolute top-0 left-5 h-[30px] w-[30px]"
+                className="absolute top-0 right-5 h-[35px] w-[35px]"
               >
                 {copyStatus ? <IoMdCheckmark size={20} /> : <MdContentCopy size={20} />}
               </DivWrapper>
@@ -87,9 +92,9 @@ export default function HomePage() {
 
             <Textarea
               id="generated_strings"
-              value={generatedStrings.join("\n").trim()}
+              defaultValue={generatedStrings.join("\n").trim()}
               readOnly
-              className="mt-1 mx-4 bg-background border-none shadow-xl py-10 shadow-foreground/30 resize-none md:w-[700px] h-[300px]"
+              className="mt-1 mx-4 bg-background border-none shadow-xl py-10 shadow-foreground/30 resize-none w-[320px] sm:w-[600px] md:w-[700px] h-[300px]"
             />
           </div>
         </div>
@@ -125,8 +130,9 @@ export default function HomePage() {
               type="number"
               id="num_of_character"
               value={numOfCharacters}
-              onChange={(e: ChangeEvent<HTMLInputElement>) => setNumOfCharacters(Number(e.target.value))}
+              onChange={(e: ChangeEvent<HTMLInputElement>) => setNumOfCharacters(Math.min(Number(e.target.value), 10000))}
               min={1}
+              max={10000}
               className="mt-1"
             />
           </div>
