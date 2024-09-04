@@ -1,12 +1,9 @@
-import { ModeToggle } from "./components/mode-toggle";
+import HomePage from "./app/pages/home/homePage";
 
 export default function App() {
   return (
     <>
-      <div>
-        <ModeToggle />
-      </div>
-      App</>
-  )
+      <HomePage />
+    </>)
 }
 
