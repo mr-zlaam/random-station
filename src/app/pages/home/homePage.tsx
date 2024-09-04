@@ -19,6 +19,9 @@ export default function HomePage() {
   const [copyStatus, setCopyStatus] = useState<boolean>(false); // New state for copy status
 
   const generateRandomStrings = () => {
+    if (numOfCharacters === 0) return;
+    if (numOfStrings === 0) return;
+
     const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
     const numbers = "0123456789";
     const specialCharacters = "!$%^&*_-";
@@ -45,7 +48,7 @@ export default function HomePage() {
     for (let i = 0; i < numOfStrings; i++) {
       let randomString = "";
       for (let j = 0; j < numOfCharacters; j++) {
-        const randomIndex = Math.floor(Math.random() * allCharacters.length);
+        const randomIndex = crypto.getRandomValues(new Uint32Array(1))[0] % allCharacters.length;
         randomString += allCharacters[randomIndex];
       }
       randomStrings.push(randomString);
@@ -60,11 +63,9 @@ export default function HomePage() {
       () => {
         setCopyStatus(true); // Set copy status to true
         setTimeout(() => {
-          setCopyStatus(false)
-          setIsModalOpen(false)
-
+          setCopyStatus(false);
+          setIsModalOpen(false);
         }, 1000); // Revert to default icon after 1 second
-
       },
       (err) => alert("Failed to copy text: " + err)
     );
@@ -81,7 +82,7 @@ export default function HomePage() {
             <RxCross2 size={35} />
           </DivWrapper>
           <div className="my-3 absolute top-[30%] left-[50%] transform -translate-x-1/2 -translate-y-1/2">
-            <div className="   absolute top-[-35px] right-2 cursor-pointer w-full">
+            <div className="absolute top-[-35px] right-2 cursor-pointer w-full">
               <DivWrapper
                 onClick={copyToClipboard}
                 className="absolute top-0 right-5 h-[35px] w-[35px]"
@@ -118,13 +119,13 @@ export default function HomePage() {
               }
               min={1}
               max={1000}
-              className="mt-1"
+              className="mt-1 text-lg"
             />
           </div>
 
           <div className="my-3">
             <label htmlFor="num_of_character" className="block text-sm font-medium">
-              How many characters do you want in each string?
+              How many characters do you want in each string? <span className="text-xs text-foreground/70">(max-10,000)</span>
             </label>
             <Input
               type="number"
@@ -133,7 +134,7 @@ export default function HomePage() {
               onChange={(e: ChangeEvent<HTMLInputElement>) => setNumOfCharacters(Math.min(Number(e.target.value), 10000))}
               min={1}
               max={10000}
-              className="mt-1"
+              className="p-4 text-lg mt-1"
             />
           </div>
 
@@ -182,8 +183,8 @@ export default function HomePage() {
           <div className="my-3">
             <Button
               onClick={generateRandomStrings}
-              className="w-full"
-              disabled={isGenerateButtonDisabled}
+              className="w-full select-none"
+              disabled={isGenerateButtonDisabled || numOfStrings === 0 || numOfCharacters === 0}
             >
               Generate Strings
             </Button>
