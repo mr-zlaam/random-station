@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -29,6 +30,7 @@
     --chart-5: 27 87% 67%;
     --radius: 0.5rem
   }
+
   .dark {
     --background: 222.2 84% 4.9%;
     --foreground: 210 40% 98%;
@@ -56,11 +58,93 @@
     --chart-5: 340 75% 55%
   }
 }
+
 @layer base {
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  * {
+    user-select: none;
+    -webkit-user-drag: none;
+  }
+}
+
+/* Firefox */
+* {
+  scrollbar-width: none;
+  scrollbar-color: transparent transparent;
+}
+
+/* Webkit-based browsers (Chrome, Safari, newer versions of Edge) */
+*::-webkit-scrollbar {
+  width: 0px;
+  /* Adjust the width as needed */
+}
+
+*::-webkit-scrollbar-track {
+  background: none;
+  width: 1px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #28282b;
+  border-radius: 30px;
+}
+
+/* Microsoft Edge and Internet Explorer */
+*::-ms-scrollbar-thumb {
+  width: 0px;
+  /* Adjust the width as needed */
+}
+
+*::-ms-scrollbar-track {
+  background: transparent;
+  width: 0;
+}
+
+@media screen and (max-width: 768px) {
+  *::-webkit-scrollbar {
+    width: 0.5px;
+    /* Adjust the width as needed */
+  }
+}
+
+@media screen and (max-width: 250px) {
+  * {
+    visibility: hidden;
+    background: #28282b;
+    background-image: linear-gradient(32deg,
+        rgba(8, 8, 8, 0.74) 30px,
+        transparent);
+    background-size: 60px 60px;
+    background-position: -5px -5px;
+    color: #ffffff;
+  }
+}
+
+.animate-forward {
+  animation: backAndForth 2s ease-in-out backwards infinite alternate;
+  /* Animation applied */
+}
+
+@keyframes backAndForth {
+  0% {
+    right: 50px;
+  }
+
+  /* Start position */
+  50% {
+    right: 80px;
+  }
+
+  100% {
+    right: 50px;
   }
 }
