@@ -109,31 +109,31 @@ export default function HomePage() {
             <label htmlFor="num_of_string" className="block text-sm font-medium">
               How many strings do you want to generate?
             </label>
-            <span className="text-xs text-foreground/70 mx-4">(max-1000)</span>
+            <span className="text-xs text-foreground/70 mx-4">(max-500)</span>
             <Input
               type="number"
               id="num_of_string"
               value={numOfStrings}
               onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                setNumOfStrings(Math.min(Number(e.target.value), 1000))
+                setNumOfStrings(Math.min(Number(e.target.value), 500))
               }
               min={1}
-              max={1000}
+              max={500}
               className="mt-1 text-lg"
             />
           </div>
 
           <div className="my-3">
             <label htmlFor="num_of_character" className="block text-sm font-medium">
-              How many characters do you want in each string? <span className="text-xs text-foreground/70">(max-10,000)</span>
+              How many characters do you want in each string? <span className="text-xs text-foreground/70">(max-500)</span>
             </label>
             <Input
               type="number"
               id="num_of_character"
               value={numOfCharacters}
-              onChange={(e: ChangeEvent<HTMLInputElement>) => setNumOfCharacters(Math.min(Number(e.target.value), 10000))}
+              onChange={(e: ChangeEvent<HTMLInputElement>) => setNumOfCharacters(Math.min(Number(e.target.value), 500))}
               min={1}
-              max={10000}
+              max={500}
               className="p-4 text-lg mt-1"
             />
           </div>
